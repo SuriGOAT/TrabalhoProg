@@ -8,8 +8,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.appcaloriasagua.ui.theme.AppCaloriasAguaTheme
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +31,12 @@ fun AppContent() {
     var copos by remember { mutableIntStateOf(0) }
     var calorias by remember { mutableIntStateOf(0) }
 
+    var goalCoposInput by remember { mutableStateOf("") }
+    var goalCaloriasInput by remember { mutableStateOf("") }
+
+    var goalCopos by remember { mutableIntStateOf(0) }
+    var goalCalorias by remember { mutableIntStateOf(0) }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -38,7 +48,37 @@ fun AppContent() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Copos de Água: $copos", style = MaterialTheme.typography.headlineMedium)
+            // Objetivos
+            Text("Definir Objetivos Diários", style = MaterialTheme.typography.headlineSmall)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = goalCoposInput,
+                onValueChange = { goalCoposInput = it },
+                label = { Text("Objetivo de Copos") },
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = goalCaloriasInput,
+                onValueChange = { goalCaloriasInput = it },
+                label = { Text("Objetivo de Calorias") },
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(onClick = {
+                goalCopos = goalCoposInput.toIntOrNull() ?: 0
+                goalCalorias = goalCaloriasInput.toIntOrNull() ?: 0
+            }) {
+                Text("Guardar Objetivos")
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Mostrar contadores e objetivos
+            Text("Copos de Água: $copos / $goalCopos", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = { copos++ }) {
                 Text("Beber um copo")
@@ -46,7 +86,7 @@ fun AppContent() {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text("Calorias: $calorias", style = MaterialTheme.typography.headlineMedium)
+            Text("Calorias: $calorias / $goalCalorias", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = { calorias += 100 }) {
                 Text("Adicionar 100 calorias")
