@@ -8,12 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardOptions
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.appcaloriasagua.ui.theme.AppCaloriasAguaTheme
-
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,23 +44,20 @@ fun AppContent() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Objetivos
             Text("Definir Objetivos Diários", style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
                 value = goalCoposInput,
                 onValueChange = { goalCoposInput = it },
-                label = { Text("Objetivo de Copos") },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                label = { Text("Objetivo de Copos") }
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
                 value = goalCaloriasInput,
                 onValueChange = { goalCaloriasInput = it },
-                label = { Text("Objetivo de Calorias") },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                label = { Text("Objetivo de Calorias") }
             )
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -77,7 +70,6 @@ fun AppContent() {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Mostrar contadores e objetivos
             Text("Copos de Água: $copos / $goalCopos", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = { copos++ }) {
@@ -103,3 +95,4 @@ fun AppContent() {
         }
     }
 }
+
