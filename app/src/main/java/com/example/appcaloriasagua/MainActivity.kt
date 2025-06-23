@@ -90,7 +90,7 @@ fun AppContent() {
                 copos = 0
                 calorias = 0
             }) {
-                Text("Reiniciar dia")
+                Text("Reiniciar dia!")
             }
         }
     }
